@@ -44,6 +44,10 @@ public class ArrayIntQueue implements IntQueue {
         size = 0;
     }
 
+    public int head(){
+        return head;
+    }
+
     /** {@inheritDoc} */
     public void clear() {
         Arrays.fill(elementData, 0);
@@ -97,7 +101,9 @@ public class ArrayIntQueue implements IntQueue {
      * necessary, to ensure that it can hold at least size + 1 elements.
      */
     private void ensureCapacity() {
+        
         if (size == elementData.length) {
+            System.out.println("this is the size brfore resizing: " + size);
             int oldCapacity = elementData.length;
             int newCapacity = 2 * oldCapacity + 1;
             int[] newData = new int[newCapacity];
@@ -105,12 +111,12 @@ public class ArrayIntQueue implements IntQueue {
                 newData[i - head] = elementData[i];
             }
             for (int i = 0; i < head; i++) {
-                // bug
-                // newData[head - i] = elementData[i];
-                newData[head + i] = elementData[i];
+                // bug 3
+                newData[oldCapacity - head + i] = elementData[i];
             }
             elementData = newData;
             head = 0;
+            
         }
     }
 }
